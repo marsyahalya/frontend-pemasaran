@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, lazy, Suspense } from "react"
 import api from "../services/api"
 import KpiCard from "../components/KpiCard"
 import SalesByProductChart from "../components/charts/SalesByProductChart"
 import RevenueBySegmentChart from "../components/charts/RevenueBySegmentChart"
-import SalesCycleLengthChart from "../components/charts/SalesCycleLengthChart"
-import CustomerLifetimeValueChart from "../components/charts/CustomerLifetimeValueChart"
-import SalesAdequacyRatioChart from "../components/charts/SalesAdequacyRatioChart"
-import SalesConversionRatioChart from "../components/charts/SalesConversionRatioChart"
-import SalesVsScalingRevenueChart from "../components/charts/SalesVsScalingRevenueChart"
 import { LayoutDashboard } from "lucide-react"
+
+const SalesCycleLengthChart = lazy(() => import("../components/charts/SalesCycleLengthChart"))
+const CustomerLifetimeValueChart = lazy(() => import("../components/charts/CustomerLifetimeValueChart"))
+const SalesAdequacyRatioChart = lazy(() => import("../components/charts/SalesAdequacyRatioChart"))
+const SalesConversionRatioChart = lazy(() => import("../components/charts/SalesConversionRatioChart"))
+const SalesVsScalingRevenueChart = lazy(() => import("../components/charts/SalesVsScalingRevenueChart"))
+
+const ChartSkeleton = () => (
+  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse text-slate-400 font-medium">Loading...</div>
+  </div>
+)
 
 export default function Dashboard() {
   const [sales, setSales] = useState(null)
@@ -176,24 +183,34 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
           <div className="lg:col-span-3">
-            <SalesCycleLengthChart year={year} />
+            <Suspense fallback={<ChartSkeleton />}>
+              <SalesCycleLengthChart year={year} />
+            </Suspense>
           </div>
           <div className="lg:col-span-3">
-            <CustomerLifetimeValueChart year={year} />
+            <Suspense fallback={<ChartSkeleton />}>
+              <CustomerLifetimeValueChart year={year} />
+            </Suspense>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
           <div className="lg:col-span-4">
-            <SalesAdequacyRatioChart year={year} filterType={filterType} month={month} />
+            <Suspense fallback={<ChartSkeleton />}>
+              <SalesAdequacyRatioChart year={year} filterType={filterType} month={month} />
+            </Suspense>
           </div>
           <div className="lg:col-span-2">
-            <SalesConversionRatioChart year={year} filterType={filterType} month={month} />
+            <Suspense fallback={<ChartSkeleton />}>
+              <SalesConversionRatioChart year={year} filterType={filterType} month={month} />
+            </Suspense>
           </div>
         </div>
 
         <div className="w-full">
-          <SalesVsScalingRevenueChart year={year} />
+          <Suspense fallback={<ChartSkeleton />}>
+            <SalesVsScalingRevenueChart year={year} />
+          </Suspense>
         </div>
       </div>
     </div>
