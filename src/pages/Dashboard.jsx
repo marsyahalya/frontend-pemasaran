@@ -12,8 +12,13 @@ const SalesConversionRatioChart = lazy(() => import("../components/charts/SalesC
 const SalesVsScalingRevenueChart = lazy(() => import("../components/charts/SalesVsScalingRevenueChart"))
 
 const ChartSkeleton = () => (
-  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full min-h-[400px] flex items-center justify-center">
-    <div className="animate-pulse text-slate-400 font-medium">Loading...</div>
+  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full min-h-[420px] flex flex-col">
+    <div className="flex items-center justify-between mb-6">
+      <div className="h-7 w-48 bg-slate-100 rounded animate-pulse" />
+    </div>
+    <div className="flex-1 bg-slate-50 rounded-lg animate-pulse min-h-[320px] w-full flex items-center justify-center">
+      <span className="text-slate-400 font-medium text-sm">Loading Chart...</span>
+    </div>
   </div>
 )
 
