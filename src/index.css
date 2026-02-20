@@ -1,11 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=optional');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     html {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    }
+
+    /*
+     * size-adjust: membuat fallback font (Arial) mendekati ukuran Roboto
+     * sehingga tidak ada layout shift ketika Roboto selesai dimuat.
+     * Nilai ~94% adalah estimasi untuk Roboto vs Arial.
+     */
+    @font-face {
+        font-family: 'Arial';
+        src: local('Arial');
+        size-adjust: 94%;
+    }
+}
+
+/* Hindari layout shift pada container yang menunggu data */
+@layer utilities {
+    .no-cls-height {
+        min-height: 1em;
     }
 }

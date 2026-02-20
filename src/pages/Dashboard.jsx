@@ -147,26 +147,32 @@ export default function Dashboard() {
             </div>
 
             {/* Month Selector (Only for MTD) */}
-            {filterType === 'mtd' && (
-              <div className="relative border-l border-slate-200">
-                <select
-                  value={month}
-                  onChange={(e) => setMonth(Number(e.target.value))}
-                  className="appearance-none bg-transparent pl-4 pr-8 py-1.5 text-sm font-semibold text-slate-700 focus:outline-none cursor-pointer hover:bg-slate-50 rounded-md"
-                >
-                  {months.map(m => (
-                    <option key={m.id || m} value={m.id || m}>
-                      {m.name || new Date(0, m - 1).toLocaleString('default', { month: 'short' })}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
-                  <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
+            {/* Selalu di DOM agar tidak ada layout shift di header, tapi hidden via width+overflow */}
+            <div
+              aria-hidden={filterType !== 'mtd'}
+              className={`relative border-l border-slate-200 transition-all duration-200 overflow-hidden ${filterType === 'mtd'
+                  ? 'w-auto max-w-[120px] opacity-100'
+                  : 'max-w-0 opacity-0 pointer-events-none border-transparent'
+                }`}
+            >
+              <select
+                value={month}
+                onChange={(e) => setMonth(Number(e.target.value))}
+                tabIndex={filterType === 'mtd' ? 0 : -1}
+                className="appearance-none bg-transparent pl-4 pr-8 py-1.5 text-sm font-semibold text-slate-700 focus:outline-none cursor-pointer hover:bg-slate-50 rounded-md"
+              >
+                {months.map(m => (
+                  <option key={m.id || m} value={m.id || m}>
+                    {m.name || new Date(0, m - 1).toLocaleString('default', { month: 'short' })}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
               </div>
-            )}
+            </div>
           </div>
         </header>
 

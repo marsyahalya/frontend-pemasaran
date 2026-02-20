@@ -42,8 +42,8 @@ export default function KpiCard({ title, value }) {
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100/50 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm font-medium text-gray-400 mb-1">{title}</p>
-                    <h3 className="text-2xl font-bold text-gray-800 tracking-tight">{value || "-"}</h3>
+                    <p className="text-sm font-medium text-gray-400 mb-1 min-h-[1.25rem]">{title}</p>
+                    <h3 className="text-2xl font-bold text-gray-800 tracking-tight min-h-[2rem]">{value || "-"}</h3>
                 </div>
                 <div className={`p-3 rounded-xl shadow-lg ${bg} ${shadow} text-white`}>
                     <Icon size={24} strokeWidth={2} />

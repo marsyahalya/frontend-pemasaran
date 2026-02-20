@@ -5,9 +5,35 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Preconnect to font origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <title>frontend-pemasaran</title>
+
+  <!-- Non-blocking font load: preload lalu swap ke 'all' untuk hindari CLS -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  </noscript>
+
+  <style>
+    /* Fallback font stack yang dimensinya mirip Roboto, mencegah layout shift saat font swap */
+    html {
+      font-family: 'Roboto', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* Reserve space untuk root agar tidak collapse sebelum React mount */
+    #root {
+      min-height: 100vh;
+    }
+  </style>
+
+  <title>Marketing Dashboard</title>
 </head>
 
 <body>
